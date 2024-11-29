@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Approved Registrations</title>
+</head>
+<body>
+    <h1>Approved Registrations</h1>
+
+    <!-- Table for Approved Registrations -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact No</th>
+                <th>Company Name</th>
+                <th>Designation</th>
+                <th>Event</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="registration : ${registrations}">
+                <td th:text="${registration.id}"></td>
+                <td th:text="${registration.name}"></td>
+                <td th:text="${registration.email}"></td>
+                <td th:text="${registration.contactNo}"></td>
+                <td th:text="${registration.companyName}"></td>
+                <td th:text="${registration.designation}"></td>
+                <td th:text="${registration.event.name}"></td>
+                <td th:text="${registration.status}"></td>
+                <td>
+                    <!-- Re-approve button -->
+                    <form th:action="@{/admin/approve}" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${registration.id}" />
+                        <button type="submit" th:disabled="${registration.status != 'REJECTED'}">Re-Approve</button>
+                    </form>
+
+                    <!-- Re-reject button -->
+                    <form th:action="@{/admin/reject}" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${registration.id}" />
+                        <button type="submit" th:disabled="${registration.status != 'APPROVED'}">Re-Reject</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

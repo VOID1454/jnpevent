@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Login Logs</title>
+</head>
+<body>
+    <h1>Admin Login Logs</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>IP Address</th>
+                <th>Login Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="log : ${logs}">
+                <td th:text="${log.id}"></td>
+                <td th:text="${log.username}"></td>
+                <td th:text="${log.ipAddress}"></td>
+                <td th:text="${log.loginTime}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/admin-home">Back to Admin Home</a>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Registration</title>
+</head>
+<body>
+<h1>Update Registration</h1>
+<form th:action="@{/registrations/update/{id}(id=${registration.id})}" method="post">
+
+    <!-- Hidden input for registration ID -->
+    <input type="hidden" name="id" th:value="${registration.id}"/>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:value="${registration.name}" required/><br/>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:value="${registration.email}" required/><br/>
+
+    <label for="contactNo">Contact No:</label>
+    <input type="text" id="contactNo" name="contactNo" th:value="${registration.contactNo}" required/><br/>
+
+    <label for="companyName">Company Name:</label>
+    <input type="text" id="companyName" name="companyName" th:value="${registration.companyName}" required/><br/>
+
+    <label for="designation">Designation:</label>
+    <input type="text" id="designation" name="designation" th:value="${registration.designation}" required/><br/>
+
+    <label for="event">Event:</label>
+    <select id="event" name="eventId" required>
+        <option th:each="event : ${events}" 
+                th:value="${event.id}" 
+                th:text="${event.name}" 
+                th:selected="${event.id == registration.event.id}"></option>
+    </select><br/>
+
+    <input type="submit" value="Change"/>
+</form>
+<a href="/registrations">Back to Registrations</a>
+</body>
+</html>

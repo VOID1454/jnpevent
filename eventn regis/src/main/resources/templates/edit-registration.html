@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Registration</title>
+</head>
+<body>
+    <h1>Edit Registration</h1>
+    <form action="/admin/editRegistration" th:object="${registration}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label for="name">Name:</label>
+        <input type="text" th:field="*{name}" required/>
+
+        <label for="email">Email:</label>
+        <input type="email" th:field="*{email}" required/>
+
+        <label for="contactNo">Contact No:</label>
+        <input type="text" th:field="*{contactNo}" required/>
+
+        <label for="companyName">Company Name:</label>
+        <input type="text" th:field="*{companyName}" required/>
+
+        <label for="designation">Designation:</label>
+        <input type="text" th:field="*{designation}" required/>
+
+        <label for="event">Event:</label>
+        <select th:field="*{event.id}" required>
+            <option th:each="event : ${events}" 
+                    th:value="${event.id}" 
+                    th:text="${event.name}" 
+                    th:selected="${event.id == registration.event.id}">
+            </option>
+        </select>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

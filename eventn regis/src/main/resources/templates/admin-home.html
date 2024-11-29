@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Home</title>
+</head>
+<body>
+    <h1>Welcome to Admin Home</h1>
+    <ul>
+        <li><a th:href="@{/admin/events}">Manage Events</a></li>
+        <li><a th:href="@{/admin/manageRegistrations}">Manage Registrations</a></li>
+        <li><a th:href="@{/admin/editRegistration}">Edit Registrations</a></li>
+        <!--  Logs link -->
+        <li><a th:href="@{/admin/logs}">View Logs</a></li> <!-- will be Button to view logs -->
+        
+    </ul>
+
+    <a href="/logout">Logout</a>
+</body>
+</html>

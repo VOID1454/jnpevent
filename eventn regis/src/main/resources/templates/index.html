@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event List</title>
+</head>
+<body>
+    <h1>Events</h1>
+
+    <!-- Display Event Cards -->
+    <div class="event-cards">
+        <div class="event-card" th:each="event : ${events}">
+            <h3 th:text="${event.name}"></h3>
+            <p th:text="${event.location}"></p>
+            <p th:text="${event.startDate}"></p>
+            <a th:href="@{/admin/registrations/{eventId}(eventId=${event.id})}">View Registrations</a>
+        </div>
+    </div>
+</body>
+</html>

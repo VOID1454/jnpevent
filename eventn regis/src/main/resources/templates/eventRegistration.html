@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event Registration</title>
+</head>
+<body>
+<h1>Register for an Event</h1>
+<form action="/register/submit" th:object="${registration}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" th:field="*{name}" placeholder="Enter your name" required/>
+
+    <label for="email">Email:</label>
+    <input type="email" th:field="*{email}" placeholder="Enter your email" required/>
+
+    <label for="contactNo">Contact Number:</label>
+    <input type="text" th:field="*{contactNo}" placeholder="Enter your contact number" required/>
+
+    <label for="companyName">Company Name:</label>
+    <input type="text" th:field="*{companyName}" placeholder="Enter your company name" required/>
+
+    <label for="designation">Designation:</label>
+    <input type="text" th:field="*{designation}" placeholder="Enter your designation" required/>
+
+    <label for="event">Select Event:</label>
+    <select th:field="*{event}" required>
+        <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.name}"></option>
+    </select>
+
+    <button type="submit">Register</button>
+</form>
+
+</body>
+</html>

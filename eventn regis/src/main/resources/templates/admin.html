@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Page</title>
+</head>
+<body>
+<h1>Manage Events</h1>
+<form action="/admin/createEvent" th:object="${event}" method="post">
+    <input type="text" th:field="*{name}" placeholder="Event Name" required/>
+    <input type="text" th:field="*{location}" placeholder="Event Location" required/>
+    <textarea th:field="*{description}" placeholder="Event Description" required></textarea>
+    <input type="datetime-local" th:field="*{startDateTime}" required/>
+    <input type="datetime-local" th:field="*{endDateTime}" required/>
+    <button type="submit">Create Event</button>
+</form>
+
+<h2>Existing Events</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Location</th> 
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+    </tr>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.location}"></td>
+        <td th:text="${event.description}"></td>
+        <td th:text="${event.startDateTime}"></td>
+        <td th:text="${event.endDateTime}"></td>
+    </tr>
+</table>
+</body>
+</html>

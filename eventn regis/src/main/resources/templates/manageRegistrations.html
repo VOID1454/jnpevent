@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Registrations</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        /* Add inline styling for basic visual improvement */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 250px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-actions {
+            display: inline-flex;
+            gap: 10px;
+        }
+
+        .no-registrations {
+            font-size: 1.2rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Events</h1>
+    
+    <!-- Event Cards -->
+    <div class="card-container">
+        <div class="card" th:each="event : ${events}">
+            <h3 th:text="${event.name}"></h3>
+            <p th:text="'Location: ' + ${event.location}"></p>
+            <p th:text="'Start: ' + ${formattedStart}"></p>
+            <p th:text="'End: ' + ${formattedEnd}"></p>
+            <a th:href="@{/admin/manageRegistrations(eventId=${event.id})}">View Registrations</a>
+        </div>
+    </div>
+
+    <!-- Registrations for Selected Event -->
+    <div th:if="${registrations != null}">
+        <h2 th:text="'Registrations for Event: ' + ${selectedEvent.name}"></h2>
+        
+        <div th:if="${#lists.isEmpty(registrations)}">
+            <p class="no-registrations">No registrations available for this event.</p>
+        </div>
+        
+        <table th:if="${!#lists.isEmpty(registrations)}">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact No</th>
+                    <th>Company Name</th>
+                    <th>Designation</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="registration : ${registrations}">
+                    <td th:text="${registration.id}"></td>
+                    <td th:text="${registration.name}"></td>
+                    <td th:text="${registration.email}"></td>
+                    <td th:text="${registration.contactNo}"></td>
+                    <td th:text="${registration.companyName}"></td>
+                    <td th:text="${registration.designation}"></td>
+                    <td th:text="${registration.status}"></td> <!-- Display status -->
+                    <td class="form-actions">
+                        
+                            <!-- Accept Button -->
+                            <form action="/admin/acceptRegistration" method="post" style="display:inline;">
+                                <input type="hidden" name="id" th:value="${registration.id}" />
+                                <button type="submit">Accept</button>
+                            </form>
+                        
+                            <!-- Reject Button -->
+                            <form action="/admin/rejectRegistration" method="post" style="display:inline;">
+                                <input type="hidden" name="id" th:value="${registration.id}" />
+                                <button type="submit">Reject</button>
+                            </form>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

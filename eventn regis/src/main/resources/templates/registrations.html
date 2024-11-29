@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Registrations</title>
+</head>
+<body>
+    <h1>Event Registrations</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact No</th>
+                <th>Company Name</th>
+                <th>Designation</th>
+                <th>Event</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="registration : ${registrations}">
+                <td th:text="${registration.id}"></td>
+                <td th:text="${registration.name}"></td>
+                <td th:text="${registration.email}"></td>
+                <td th:text="${registration.contactNo}"></td>
+                <td th:text="${registration.companyName}"></td>
+                <td th:text="${registration.designation}"></td>
+                <td th:text="${registration.event.name}"></td>
+                <td>
+                    <!-- Delete Button -->
+                    <form action="/admin/deleteRegistration" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${registration.id}"/>
+                        <button type="submit">Delete</button>
+                    </form>
+                    
+                    <a th:href="@{/admin/editRegistration(id=${registration.id})}">
+                        <button>Edit</button>
+                    </a>
+                    
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

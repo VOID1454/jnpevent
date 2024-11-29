@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Event</title>
+</head>
+<body>
+    <h1>Edit Event</h1>
+    <form action="/admin/event/edit" th:object="${event}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label for="name">Event Name:</label>
+        <input type="text" id="name" th:field="*{name}" placeholder="Event Name" required/><br>
+
+        <label for="location">Event Location:</label>
+        <input type="text" id="location" th:field="*{location}" placeholder="Event Location" required/><br>
+
+        <label for="description">Event Description:</label>
+        <textarea id="description" th:field="*{description}" placeholder="Event Description" required></textarea><br>
+
+        <label for="startDateTime">Start Date and Time:</label>
+        <input type="datetime-local" id="startDateTime" th:field="*{startDateTime}" required/><br>
+
+        <label for="endDateTime">End Date and Time:</label>
+        <input type="datetime-local" id="endDateTime" th:field="*{endDateTime}" required/><br>
+
+        <button type="submit">Update Event</button>
+    </form>
+
+    <a href="/admin/events">Back to Events List</a>
+</body>
+</html>
